@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,7 +31,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentStep = 0;
+  bool _value = true;
+  String? selectedOption = "Option 1";
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  List<String> options = ['Option 1', 'Option 2', 'Option 3'];
 
   @override
   Widget build(BuildContext context) {
@@ -97,9 +104,104 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ))),
                     Step(
-                      title: Text("Step 2"),
-                      content: Text("This is step 2"),
-                    ),
+                        title: Text("Step 2"),
+                        content: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Column(
+                              children: [
+                                Text("Algunos datos más",
+                                    style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w500)),
+                                Form(
+                                    child: Column(children: [
+                                  Row(
+                                    children: [
+                                      Text("Visita de varios días",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400)),
+                                      Expanded(
+                                          child: Transform.scale(
+                                              scale: 1.5,
+                                              child: Container(
+                                                margin:
+                                                    EdgeInsets.only(left: 80.0),
+                                                child: Switch(
+                                                    value: _value,
+                                                    activeTrackColor:
+                                                        Color.fromARGB(
+                                                            255, 59, 191, 173),
+                                                    inactiveTrackColor:
+                                                        Colors.grey,
+                                                    activeColor: Colors.white,
+                                                    onChanged: (bool value) {
+                                                      setState(() {
+                                                        _value = value;
+                                                      });
+                                                    }),
+                                              )))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [],
+                                  ),
+                                  Container(
+                                    width: 325,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: DropdownButton<String>(
+                                      value: selectedOption,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          selectedOption = newValue;
+                                        });
+                                      },
+                                      items: options.map((String option) {
+                                        return DropdownMenuItem<String>(
+                                          value: option,
+                                          child: Text(option),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("¿Vienes en coche?",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400)),
+                                      Expanded(
+                                          child: Transform.scale(
+                                              scale: 1.5,
+                                              child: Container(
+                                                margin:
+                                                    EdgeInsets.only(left: 80.0),
+                                                child: Switch(
+                                                    value: _value,
+                                                    activeTrackColor:
+                                                        Color.fromARGB(
+                                                            255, 59, 191, 173),
+                                                    inactiveTrackColor:
+                                                        Colors.grey,
+                                                    activeColor: Colors.white,
+                                                    onChanged: (bool value) {
+                                                      setState(() {
+                                                        _value = value;
+                                                      });
+                                                    }),
+                                              )))
+                                    ],
+                                  ),
+                                ])),
+                              ],
+                            ))),
                     Step(
                       title: Text("Step 3"),
                       content: Text("This is step 3"),
